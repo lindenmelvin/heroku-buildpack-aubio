@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+echo "Aubio Start"
+exit 0
