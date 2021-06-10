@@ -1,10 +1,16 @@
 #!/usr/bin/env bash
 echo "-----> Installing Aubio 0.4.7"
-# change to the the BUILD_DIR ($1)
-cd $1
 
-git clone git@github.com:aubio/aubio.git
+BUILD_DIR=$1
+VENDOR_DIR="vendor"
+DOWNLOAD_URL="https://github.com/lindenmelvin/heroku-buildpack-aubio/raw/master/aubio.tar.gz"
 
+echo "DOWNLOAD_URL = " $DOWNLOAD_URL | indent
+
+cd $BUILD_DIR
+mkdir -p $VENDOR_DIR
+cd $VENDOR_DIR
+curl -L --silent $DOWNLOAD_URL | tar xz
 cd aubio
 
 make
