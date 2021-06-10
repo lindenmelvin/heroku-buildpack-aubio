@@ -11,16 +11,10 @@ tar -C vendor/aubio -xvf aubio-0.4.7.tar.bz2
 cd vendor/aubio/aubio-0.4.7
 ./waf configure build
 
-AUBIODIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )/.." && pwd )"
+source ./scripts/setenv_local.sh
 
-AUBIOLIB=$AUBIODIR/build/src
+mkdir -p ~/lib
+ln -sf $PWD/build/src/libaubio*.dylib ~/lib/
 
-if [ "$(uname)" == "Darwin" ]; then
-  export DYLD_LIBRARY_PATH=$AUBIOLIB
-  echo export DYLD_LIBRARY_PATH=$DYLD_LIBRARY_PATH
-else
-  export LD_LIBRARY_PATH=$AUBIOLIB
-  echo export LD_LIBRARY_PATH=$LD_LIBRARY_PATH
-fi
-
+export DYLD_LIBRARY_PATH=$DYLD_LIBRARY_PATH:$PWD/build/src
 export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$PWD/build/src
