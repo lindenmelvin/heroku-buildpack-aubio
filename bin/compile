@@ -1,16 +1,13 @@
 #!/usr/bin/env bash
 echo "-----> Installing Aubio 0.4.7"
-
-BUILD_DIR=$1
-VENDOR_DIR="vendor"
-DOWNLOAD_URL="https://github.com/lindenmelvin/heroku-buildpack-aubio/raw/main/aubio.tar.gz"
-
-echo "DOWNLOAD_URL = " $DOWNLOAD_URL | indent
-
-cd $BUILD_DIR
-mkdir -p $VENDOR_DIR
-cd $VENDOR_DIR
-curl -L --silent $DOWNLOAD_URL | tar x
-cd aubio
-
-make
+# change to the the BUILD_DIR ($1)
+cd $1
+# download the binary (-O) silently (-s)
+curl https://aubio.org/pub/aubio-0.4.7.tar.bz2 -s -O
+# make a directory to untar (like unzip) the binary
+mkdir -p vendor/aubio
+# untar the binary to the directory we want
+tar -C vendor/aubio -xvf aubio-0.4.7.tar.bz2
+cd vendor/aubio/aubio-0.4.7
+./waf configure build
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$PWD/build/src
