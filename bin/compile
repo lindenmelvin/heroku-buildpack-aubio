@@ -10,4 +10,4 @@ mkdir -p vendor/aubio
 tar -C vendor/aubio -xvf aubio-0.4.7.tar.bz2
 cd vendor/aubio/aubio-0.4.7
 ./waf configure build
-sudo ./waf install
+./waf install
